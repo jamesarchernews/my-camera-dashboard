@@ -3,42 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Camera Command Center</title>
+    <title>Pro Cam Monitor</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <header>
-        <h1>Camera Monitor</h1>
-        <button id="setup-btn" onclick="toggleSetup()">⚙️ Setup Feeds</button>
-    </header>
-
-    <div id="setup-panel" class="hidden">
-        <h3>Enter Camera Stream URLs</h3>
-        <p><small>Note: Use http://IP_ADDRESS or the full stream URL</small></p>
-        <input type="text" id="cam1" placeholder="Camera 1 URL">
-        <input type="text" id="cam2" placeholder="Camera 2 URL">
-        <input type="text" id="cam3" placeholder="Camera 3 URL">
-        <input type="text" id="cam4" placeholder="Camera 4 URL">
-        <button onclick="saveFeeds()">Apply Changes</button>
+    <div class="top-bar">
+        <h1>SYSTEM MONITOR</h1>
+        <button id="setup-btn" onclick="toggleSetup()">SETTINGS</button>
     </div>
 
-    <div class="camera-grid" id="grid">
+    <div id="setup-panel" class="hidden">
+        <h3>Camera Configuration</h3>
+        <p>Type <code>http://</code> followed by your IP address</p>
+        <input type="text" id="cam1" placeholder="e.g. http://162.119.248.192">
+        <input type="text" id="cam2" placeholder="e.g. http://162.119.224.182">
+        <input type="text" id="cam3" placeholder="e.g. http://207.233.23.211">
+        <input type="text" id="cam4" placeholder="e.g. http://4.59.60.67">
+        <button class="save-btn" onclick="saveFeeds()">LAUNCH FEEDS</button>
+    </div>
+
+    <div class="camera-grid">
         <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view1" src=""></iframe>
-            <div class="label">Feed 01</div>
+            <iframe id="view1" src="about:blank"></iframe>
+            <div class="label">CHANNEL 01</div>
         </div>
         <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view2" src=""></iframe>
-            <div class="label">Feed 02</div>
+            <iframe id="view2" src="about:blank"></iframe>
+            <div class="label">CHANNEL 02</div>
         </div>
         <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view3" src=""></iframe>
-            <div class="label">Feed 03</div>
+            <iframe id="view3" src="about:blank"></iframe>
+            <div class="label">CHANNEL 03</div>
         </div>
         <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view4" src=""></iframe>
-            <div class="label">Feed 04</div>
+            <iframe id="view4" src="about:blank"></iframe>
+            <div class="label">CHANNEL 04</div>
         </div>
     </div>
 
