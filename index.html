@@ -2,47 +2,114 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TERMINAL CAM MONITOR</title>
-    <link rel="stylesheet" href="style.css">
+    <title>TERMINAL MONITOR v3 // BYPASS MODE</title>
+    <style>
+        body { background: #000; color: #ff0000; font-family: 'Courier New', monospace; margin: 0; overflow: hidden; }
+        
+        /* Header styling */
+        .header { display: flex; justify-content: space-between; padding: 15px; border-bottom: 2px solid #ff0000; box-shadow: 0 0 15px #ff0000; }
+        h1 { margin: 0; font-size: 1.2rem; letter-spacing: 3px; }
+        
+        /* The Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; padding: 20px; height: 80vh; }
+        
+        /* Camera Cards */
+        .card { 
+            position: relative; 
+            background: #0a0a0a; 
+            border: 1px solid #444; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: #ff0000; box-shadow: 0 0 20px rgba(255,0,0,0.4); transform: scale(1.02); }
+        
+        .status-text { font-size: 1.5rem; font-weight: bold; margin-bottom: 10px; }
+        .sub-text { font-size: 0.8rem; color: #888; }
+        
+        /* Red recording dot */
+        .rec { position: absolute; top: 10px; right: 10px; color: #ff0000; animation: blink 1s infinite; font-weight: bold; }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* Configuration Panel */
+        .hidden { display: none; }
+        #setup { background: #111; padding: 20px; text-align: center; border-bottom: 1px solid #ff0000; }
+        input { background: #000; border: 1px solid #ff0000; color: #fff; padding: 10px; margin: 5px; width: 250px; font-family: inherit; }
+        button { background: #ff0000; color: #000; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; font-family: inherit; }
+    </style>
 </head>
 <body>
+
     <div class="header">
-        <h1>SYSTEM MONITOR // ACTIVE</h1>
-        <button onclick="toggleSetup()">CONFIG</button>
+        <h1>SECURE EXTERNAL MONITOR // ACTIVE</h1>
+        <button onclick="toggleSetup()">SYSTEM CONFIG</button>
     </div>
 
-    <div id="setup-panel" class="hidden">
-        <input type="text" id="ip1" placeholder="Enter IP 1 (e.g. 162.119.248.192)">
-        <input type="text" id="ip2" placeholder="Enter IP 2">
-        <input type="text" id="ip3" placeholder="Enter IP 3">
-        <input type="text" id="ip4" placeholder="Enter IP 4">
-        <button onclick="applyIPs()">BOOT FEEDS</button>
+    <div id="setup" class="hidden">
+        <h3>ENTER CAMERA IP ADDRESSES</h3>
+        <input type="text" id="ip1" placeholder="IP 1 (e.g. 66.214.172.141)">
+        <input type="text" id="ip2" placeholder="IP 2">
+        <input type="text" id="ip3" placeholder="IP 3">
+        <input type="text" id="ip4" placeholder="IP 4">
+        <button onclick="saveIPs()">INITIALIZE SYSTEM</button>
     </div>
 
     <div class="grid">
-        <div class="card" onclick="zoom(this)">
-            <div class="rec-dot">REC</div>
-            <iframe id="cam1"></iframe>
-            <div class="tag">CH-01</div>
+        <div class="card" onclick="openCam(1)">
+            <div class="rec">REC ●</div>
+            <div class="status-text" id="label1">OFFLINE</div>
+            <div class="sub-text">CLICK TO ESTABLISH CONNECTION</div>
         </div>
-        <div class="card" onclick="zoom(this)">
-            <div class="rec-dot">REC</div>
-            <iframe id="cam2"></iframe>
-            <div class="tag">CH-02</div>
+        <div class="card" onclick="openCam(2)">
+            <div class="rec">REC ●</div>
+            <div class="status-text" id="label2">OFFLINE</div>
+            <div class="sub-text">CLICK TO ESTABLISH CONNECTION</div>
         </div>
-        <div class="card" onclick="zoom(this)">
-            <div class="rec-dot">REC</div>
-            <iframe id="cam3"></iframe>
-            <div class="tag">CH-03</div>
+        <div class="card" onclick="openCam(3)">
+            <div class="rec">REC ●</div>
+            <div class="status-text" id="label3">OFFLINE</div>
+            <div class="sub-text">CLICK TO ESTABLISH CONNECTION</div>
         </div>
-        <div class="card" onclick="zoom(this)">
-            <div class="rec-dot">REC</div>
-            <iframe id="cam4"></iframe>
-            <div class="tag">CH-04</div>
+        <div class="card" onclick="openCam(4)">
+            <div class="rec">REC ●</div>
+            <div class="status-text" id="label4">OFFLINE</div>
+            <div class="sub-text">CLICK TO ESTABLISH CONNECTION</div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        let cameraLinks = ["", "", "", ""];
+
+        function toggleSetup() {
+            document.getElementById('setup').classList.toggle('hidden');
+        }
+
+        function saveIPs() {
+            for(let i=1; i<=4; i++) {
+                let val = document.getElementById('ip' + i).value;
+                if(val) {
+                    // Force http if missing
+                    if(!val.startsWith('http')) { val = 'http://' + val; }
+                    cameraLinks[i-1] = val;
+                    document.getElementById('label' + i).innerText = "READY";
+                    document.getElementById('label' + i).style.color = "#00ff00";
+                }
+            }
+            toggleSetup();
+        }
+
+        function openCam(index) {
+            let url = cameraLinks[index-1];
+            if(url) {
+                // This opens the camera in a new tab, bypassing iframe blocks
+                window.open(url, '_blank', 'width=800,height=600');
+            } else {
+                alert("No IP configured for this channel. Click CONFIG.");
+            }
+        }
+    </script>
 </body>
 </html>
