@@ -1,24 +1,15 @@
-function toggleSetup() {
-    const panel = document.getElementById('setup-panel');
-    panel.classList.toggle('hidden');
-}
+function toggleSetup() { document.getElementById('setup-panel').classList.toggle('hidden'); }
 
-function saveFeeds() {
-    for (let i = 1; i <= 4; i++) {
-        const val = document.getElementById(`cam${i}`).value;
-        if (val) {
-            document.getElementById(`view${i}`).src = val;
+function applyIPs() {
+    for(let i=1; i<=4; i++) {
+        let val = document.getElementById('ip'+i).value;
+        if(val) {
+            // This forces the "http://" protocol if you forgot to type it
+            if(!val.startsWith('http')) { val = 'http://' + val; }
+            document.getElementById('cam'+i).src = val;
         }
     }
     toggleSetup();
 }
 
-function toggleExpand(element) {
-    if (element.classList.contains('expanded')) {
-        element.classList.remove('expanded');
-    } else {
-        const current = document.querySelector('.expanded');
-        if (current) current.classList.remove('expanded');
-        element.classList.add('expanded');
-    }
-}
+function zoom(el) { el.classList.toggle('zoom'); }
