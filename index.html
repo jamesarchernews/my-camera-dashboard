@@ -3,41 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro Cam Monitor</title>
+    <title>TERMINAL CAM MONITOR</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="top-bar">
-        <h1>SYSTEM MONITOR</h1>
-        <button id="setup-btn" onclick="toggleSetup()">SETTINGS</button>
+    <div class="header">
+        <h1>SYSTEM MONITOR // ACTIVE</h1>
+        <button onclick="toggleSetup()">CONFIG</button>
     </div>
 
     <div id="setup-panel" class="hidden">
-        <h3>Camera Configuration</h3>
-        <p>Type <code>http://</code> followed by your IP address</p>
-        <input type="text" id="cam1" placeholder="e.g. http://162.119.248.192">
-        <input type="text" id="cam2" placeholder="e.g. http://162.119.224.182">
-        <input type="text" id="cam3" placeholder="e.g. http://207.233.23.211">
-        <input type="text" id="cam4" placeholder="e.g. http://4.59.60.67">
-        <button class="save-btn" onclick="saveFeeds()">LAUNCH FEEDS</button>
+        <input type="text" id="ip1" placeholder="Enter IP 1 (e.g. 162.119.248.192)">
+        <input type="text" id="ip2" placeholder="Enter IP 2">
+        <input type="text" id="ip3" placeholder="Enter IP 3">
+        <input type="text" id="ip4" placeholder="Enter IP 4">
+        <button onclick="applyIPs()">BOOT FEEDS</button>
     </div>
 
-    <div class="camera-grid">
-        <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view1" src="about:blank"></iframe>
-            <div class="label">CHANNEL 01</div>
+    <div class="grid">
+        <div class="card" onclick="zoom(this)">
+            <div class="rec-dot">REC</div>
+            <iframe id="cam1"></iframe>
+            <div class="tag">CH-01</div>
         </div>
-        <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view2" src="about:blank"></iframe>
-            <div class="label">CHANNEL 02</div>
+        <div class="card" onclick="zoom(this)">
+            <div class="rec-dot">REC</div>
+            <iframe id="cam2"></iframe>
+            <div class="tag">CH-02</div>
         </div>
-        <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view3" src="about:blank"></iframe>
-            <div class="label">CHANNEL 03</div>
+        <div class="card" onclick="zoom(this)">
+            <div class="rec-dot">REC</div>
+            <iframe id="cam3"></iframe>
+            <div class="tag">CH-03</div>
         </div>
-        <div class="camera-card" onclick="toggleExpand(this)">
-            <iframe id="view4" src="about:blank"></iframe>
-            <div class="label">CHANNEL 04</div>
+        <div class="card" onclick="zoom(this)">
+            <div class="rec-dot">REC</div>
+            <iframe id="cam4"></iframe>
+            <div class="tag">CH-04</div>
         </div>
     </div>
 
