@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Camera Command Center</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>Camera Monitor</h1>
+        <button id="setup-btn" onclick="toggleSetup()">⚙️ Setup Feeds</button>
+    </header>
+
+    <div id="setup-panel" class="hidden">
+        <h3>Enter Camera Stream URLs</h3>
+        <p><small>Note: Use http://IP_ADDRESS or the full stream URL</small></p>
+        <input type="text" id="cam1" placeholder="Camera 1 URL">
+        <input type="text" id="cam2" placeholder="Camera 2 URL">
+        <input type="text" id="cam3" placeholder="Camera 3 URL">
+        <input type="text" id="cam4" placeholder="Camera 4 URL">
+        <button onclick="saveFeeds()">Apply Changes</button>
+    </div>
+
+    <div class="camera-grid" id="grid">
+        <div class="camera-card" onclick="toggleExpand(this)">
+            <iframe id="view1" src=""></iframe>
+            <div class="label">Feed 01</div>
+        </div>
+        <div class="camera-card" onclick="toggleExpand(this)">
+            <iframe id="view2" src=""></iframe>
+            <div class="label">Feed 02</div>
+        </div>
+        <div class="camera-card" onclick="toggleExpand(this)">
+            <iframe id="view3" src=""></iframe>
+            <div class="label">Feed 03</div>
+        </div>
+        <div class="camera-card" onclick="toggleExpand(this)">
+            <iframe id="view4" src=""></iframe>
+            <div class="label">Feed 04</div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
